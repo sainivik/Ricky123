@@ -1,0 +1,125 @@
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"GradleSettings\">\r\n    <option name=\"linkedExternalProjectsSettings\">\r\n      <GradleProjectSettings>\r\n        <option name=\"testRunner\" value=\"PLATFORM\" />\r\n        <option name=\"distributionType\" value=\"DEFAULT_WRAPPED\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"gradleJvm\" value=\"1.8\" />\r\n        <option name=\"modules\">\r\n          <set>\r\n            <option value=\"$PROJECT_DIR$\" />\r\n            <option value=\"$PROJECT_DIR$/app\" />\r\n          </set>\r\n        </option>\r\n        <option name=\"resolveModulePerSourceSet\" value=\"false\" />\r\n      </GradleProjectSettings>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/gradle.xml	(revision 8f00d4f43a2cb5bc60c507a48276688ebc421661)
++++ .idea/gradle.xml	(date 1634976348174)
+@@ -1,5 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
++  <component name="GradleMigrationSettings" migrationVersion="1" />
+   <component name="GradleSettings">
+     <option name="linkedExternalProjectsSettings">
+       <GradleProjectSettings>
+@@ -14,6 +15,7 @@
+           </set>
+         </option>
+         <option name="resolveModulePerSourceSet" value="false" />
++        <option name="useQualifiedModuleNames" value="true" />
+       </GradleProjectSettings>
+     </option>
+   </component>
+Index: app/src/main/java/com/example/rickandmortyapp/activities/EpisodeActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.rickandmortyapp.activities;\r\n\r\nimport android.app.ProgressDialog;\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.view.View;\r\nimport android.widget.Toast;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.databinding.DataBindingUtil;\r\n\r\nimport com.example.rickandmortyapp.Model.ApiResponse;\r\nimport com.example.rickandmortyapp.R;\r\nimport com.example.rickandmortyapp.adapters.RcEpisodeAdapter;\r\nimport com.example.rickandmortyapp.api.ApiClient;\r\nimport com.example.rickandmortyapp.api.GetData;\r\nimport com.example.rickandmortyapp.databinding.ActivityEpisodeBinding;\r\n\r\nimport java.util.ArrayList;\r\n\r\nimport retrofit2.Call;\r\nimport retrofit2.Callback;\r\nimport retrofit2.Response;\r\n\r\npublic class EpisodeActivity extends AppCompatActivity {\r\n    private ActivityEpisodeBinding binding;\r\n    private ProgressDialog progressDialog;\r\n    private RcEpisodeAdapter adapter;\r\n    ArrayList<ApiResponse> arrayList;\r\n\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        binding = DataBindingUtil.setContentView(this, R.layout.activity_episode);\r\n        getServerData();\r\n\r\n    }\r\n    void getServerData(){\r\n        progressDialog = new ProgressDialog(this);\r\n        progressDialog.setMessage(\"Loading...\");\r\n        progressDialog.show();\r\n        GetData getDataService = ApiClient.getRetrofitInstance().create(GetData.class);\r\n        Call<ApiResponse> call = getDataService.getDataList();\r\n        call.enqueue(new Callback<ApiResponse>() {\r\n            @Override\r\n            public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {\r\n                progressDialog.dismiss();\r\n                showData(response.body());\r\n            }\r\n\r\n            @Override\r\n            public void onFailure(Call<ApiResponse> call, Throwable t) {\r\n                progressDialog.dismiss();\r\n                Toast.makeText(EpisodeActivity.this, \"Something went wrong...Please try later!\", Toast.LENGTH_SHORT).show();\r\n            }\r\n        });\r\n    }\r\n    void showData(ApiResponse response)\r\n    {\r\n        adapter=new RcEpisodeAdapter(this,response.getEpisodes());\r\n        binding.rcView.setAdapter(adapter);\r\n\r\n\r\n       /* adapter=new AdapterFour(this,arrayList, new RecyclerViewClickListener() {\r\n            @Override\r\n            public void onClick(View view, int pos) {\r\n                switch (view.getId()) {\r\n                    case R.id.locate_btn: {\r\n                        Intent i = new Intent(DesignFourActivity.this, LocationActivity.class);\r\n                        i.putExtra(\"lat_value\",Double.valueOf(arrayList.get(pos).getAddress().getGeo().getLat()));\r\n                        i.putExtra(\"lng_value\",Double.valueOf(arrayList.get(pos).getAddress().getGeo().getLng()));\r\n                        startActivity(i);\r\n                    }\r\n                }\r\n            }\r\n        });\r\n        binding.rcView4.setAdapter(adapter);*/\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/rickandmortyapp/activities/EpisodeActivity.java	(revision 8f00d4f43a2cb5bc60c507a48276688ebc421661)
++++ app/src/main/java/com/example/rickandmortyapp/activities/EpisodeActivity.java	(date 1634976585701)
+@@ -41,7 +41,7 @@
+         progressDialog.setMessage("Loading...");
+         progressDialog.show();
+         GetData getDataService = ApiClient.getRetrofitInstance().create(GetData.class);
+-        Call<ApiResponse> call = getDataService.getDataList();
++        /*Call<ApiResponse> call = getDataService.getDataList();
+         call.enqueue(new Callback<ApiResponse>() {
+             @Override
+             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+@@ -54,7 +54,7 @@
+                 progressDialog.dismiss();
+                 Toast.makeText(EpisodeActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+             }
+-        });
++        });*/
+     }
+     void showData(ApiResponse response)
+     {
+Index: app/src/main/java/com/example/rickandmortyapp/activities/CharactersActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.rickandmortyapp.activities;\r\n\r\nimport android.app.Activity;\r\nimport android.app.ProgressDialog;\r\nimport android.os.Bundle;\r\nimport android.widget.Toast;\r\n\r\nimport androidx.databinding.DataBindingUtil;\r\n\r\nimport com.example.rickandmortyapp.Model.ApiResponse;\r\nimport com.example.rickandmortyapp.Model.Characters;\r\nimport com.example.rickandmortyapp.R;\r\nimport com.example.rickandmortyapp.adapters.RcCharacterAdapter;\r\nimport com.example.rickandmortyapp.adapters.RcEpisodeAdapter;\r\nimport com.example.rickandmortyapp.api.ApiClient;\r\nimport com.example.rickandmortyapp.api.GetData;\r\nimport com.example.rickandmortyapp.databinding.ActivityCharactersBinding;\r\nimport com.example.rickandmortyapp.databinding.ActivityEpisodeBinding;\r\n\r\nimport java.util.ArrayList;\r\n\r\nimport retrofit2.Call;\r\nimport retrofit2.Callback;\r\nimport retrofit2.Response;\r\n\r\npublic class CharactersActivity extends Activity {\r\n    private ActivityCharactersBinding binding;\r\n    private ProgressDialog progressDialog;\r\n    private RcCharacterAdapter adapter;\r\n\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        binding = DataBindingUtil.setContentView(this, R.layout.activity_characters);\r\n        getServerData();\r\n\r\n    }\r\n    void getServerData(){\r\n        progressDialog = new ProgressDialog(this);\r\n        progressDialog.setMessage(\"Loading...\");\r\n        progressDialog.show();\r\n        GetData getDataService = ApiClient.getRetrofitInstance().create(GetData.class);\r\n        Call<ArrayList<Characters>> call = getDataService.getCharacterList();\r\n        call.enqueue(new Callback<ArrayList<Characters>>() {\r\n            @Override\r\n            public void onResponse(Call<ArrayList<Characters>> call, Response<ArrayList<Characters>> response) {\r\n                progressDialog.dismiss();\r\n                showData(response.body());\r\n            }\r\n\r\n            @Override\r\n            public void onFailure(Call<ArrayList<Characters>> call, Throwable t) {\r\n                progressDialog.dismiss();\r\n                Toast.makeText(CharactersActivity.this, \"Something went wrong...Please try later!\", Toast.LENGTH_SHORT).show();\r\n            }\r\n        });\r\n    }\r\n    void showData(ArrayList<Characters> arrayList)\r\n    {\r\n        adapter=new RcCharacterAdapter(this,arrayList);\r\n        binding.rcViewCh.setAdapter(adapter);\r\n\r\n\r\n /*adapter=new AdapterFour(this,arrayList, new RecyclerViewClickListener() {\r\n            @Override\r\n            public void onClick(View view, int pos) {\r\n                switch (view.getId()) {\r\n                    case R.id.locate_btn: {\r\n                        Intent i = new Intent(DesignFourActivity.this, LocationActivity.class);\r\n                        i.putExtra(\"lat_value\",Double.valueOf(arrayList.get(pos).getAddress().getGeo().getLat()));\r\n                        i.putExtra(\"lng_value\",Double.valueOf(arrayList.get(pos).getAddress().getGeo().getLng()));\r\n                        startActivity(i);\r\n                    }\r\n                }\r\n            }\r\n        });\r\n        binding.rcView4.setAdapter(adapter);*/\r\n\r\n    }\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/rickandmortyapp/activities/CharactersActivity.java	(revision 8f00d4f43a2cb5bc60c507a48276688ebc421661)
++++ app/src/main/java/com/example/rickandmortyapp/activities/CharactersActivity.java	(date 1634976562882)
+@@ -41,7 +41,7 @@
+         progressDialog.setMessage("Loading...");
+         progressDialog.show();
+         GetData getDataService = ApiClient.getRetrofitInstance().create(GetData.class);
+-        Call<ArrayList<Characters>> call = getDataService.getCharacterList();
++      /*  Call<ArrayList<Characters>> call = getDataService.getCharacterList(0,1,1,"");
+         call.enqueue(new Callback<ArrayList<Characters>>() {
+             @Override
+             public void onResponse(Call<ArrayList<Characters>> call, Response<ArrayList<Characters>> response) {
+@@ -54,7 +54,7 @@
+                 progressDialog.dismiss();
+                 Toast.makeText(CharactersActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+             }
+-        });
++        });*/
+     }
+     void showData(ArrayList<Characters> arrayList)
+     {
+Index: .idea/compiler.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/compiler.xml	(date 1634976348150)
++++ .idea/compiler.xml	(date 1634976348150)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="CompilerConfiguration">
++    <bytecodeTargetLevel target="1.8" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/vcs.xml	(date 1634976348140)
++++ .idea/vcs.xml	(date 1634976348140)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_1_7\" project-jdk-name=\"1.8\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\r\n  </component>\r\n  <component name=\"ProjectType\">\r\n    <option name=\"id\" value=\"Android\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/misc.xml	(revision 8f00d4f43a2cb5bc60c507a48276688ebc421661)
++++ .idea/misc.xml	(date 1634976348126)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" project-jdk-name="1.8" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/build/classes" />
+   </component>
+   <component name="ProjectType">
