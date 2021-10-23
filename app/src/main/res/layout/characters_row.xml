@@ -46,6 +46,8 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:textColor="#000000"
+
                         android:id="@+id/tvstatus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -63,6 +65,8 @@
                         android:textSize="14sp" />
 
                     <TextView
+                        android:textColor="#000000"
+
                         android:id="@+id/tvspecies"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -76,11 +80,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="8dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#FC878282"
                     android:text="Last known location : "
                     android:textSize="14sp" />
 
                 <TextView
+                    android:textColor="#000000"
                     android:id="@+id/tvlocation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -90,15 +96,18 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:layout_marginTop="10dp"
+                    android:textColor="#FC878282"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="8dp"
-                    android:layout_marginTop="5dp"
-                    android:text="First seen in : "
+                    android:text="Gender : "
                     android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/tvfirstep"
+                    android:textColor="#000000"
+
+                    android:id="@+id/tvGender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="8dp"
